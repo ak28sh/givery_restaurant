@@ -25,7 +25,7 @@ def create_recipe(db, recipe):
 
     if any(field is None or field == "" for field in required_fields):
         return JSONResponse(
-            status_code=400,
+            status_code=200,
             content={"message": "Recipe creation failed!", "required": "title, making_time, serves, ingredients, cost"}
         )
 
