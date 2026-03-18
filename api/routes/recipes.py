@@ -30,7 +30,7 @@ router = APIRouter(prefix="/recipes", tags=["Recipes"])
     "/",
     response_model=RecipeCreateResponse,
     status_code=status.HTTP_200_OK,
-    responses={400: {"model": RecipeErrorResponse}},
+    responses={200: {"model": RecipeErrorResponse}},
 )
 def create_recipe_route(recipe: RecipeCreate, db: Session = Depends(get_db)):
     """
