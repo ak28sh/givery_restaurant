@@ -29,8 +29,7 @@ router = APIRouter(prefix="/recipes", tags=["Recipes"])
 @router.post(
     "/",
     response_model=RecipeCreateResponse,
-    status_code=status.HTTP_200_OK,
-    responses={200: {"model": RecipeErrorResponse}},
+    responses={400: {"model": RecipeErrorResponse}},
 )
 def create_recipe_route(recipe: RecipeCreate, db: Session = Depends(get_db)):
     """
@@ -116,10 +115,7 @@ def update_recipe_route(
     updated_recipe = update_recipe(db, recipe_id, recipe_data)
 
     if not updated_recipe:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Recipe with id {recipe_id} not found",
-        )
+        raise HTTPException(status_code=404, detail="Recipe not found")
 
     return updated_recipe
 
